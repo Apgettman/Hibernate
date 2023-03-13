@@ -19,9 +19,9 @@ public class Employee {
     @Column(name = "age")
     private int age;
     @Column(name = "city")
-    private int cityId;
+    private String cityId;
 
-    public Employee(String firstName, String lastName, String gender, int age, int cityId) {
+    public Employee(String firstName, String lastName, String gender, int age, String cityId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;

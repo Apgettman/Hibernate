@@ -1,42 +1,56 @@
-import java.sql.Connection;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "city")
 public class City {
 
-    private int city;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "city_id")
+    private int city_id;
+    @Column(name = "city_name")
+    private String city_name;
 
-    public City(int city, String name) {
-        this.city = city;
-        this.name = name;
+    @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL)
+    private List<Employee> employees;
+
+    public City() {
     }
 
-    public City(Connection connection) {
-
+    public City(String city_name) {
+        this.city_name = city_name;
     }
 
-    public int getCity() {
-        return city;
+    public int getCity_id() {
+        return city_id;
     }
-
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+    public String getCity_name() {
+        return city_name;
+    }
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
+    @Override
+    public String toString() {
+        return "City{" +
+                "city_id=" + city_id +
+                ", city_name='" + city_name + '\'' +
+                '}';
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return this.city == city.city && Objects.equals(name, city.name);
+        return city_id == city.city_id && Objects.equals(city_name, city.city_name);
     }
-
     @Override
     public int hashCode() {
-        return Objects.hash(city, name);
-    }
-
-    @Override
-    public String toString() {
-        return "City{" +
-                "city=" + city +
-                ", name='" + name + '\'' +
-                '}';
+        return Objects.hash(city_id, city_name);
     }
 }
